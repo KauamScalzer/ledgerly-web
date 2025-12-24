@@ -1,42 +1,189 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(1.5rem, 3vw, 3rem);
+  position: relative;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.brand-panel {
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 40%),
+    radial-gradient(circle at 80% 0%, rgba(255, 255, 255, 0.08), transparent 35%),
+    linear-gradient(135deg, #111936, #0a0f24 55%, #0c1a36);
+  border-radius: 28px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  color: #e2e8f0;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  margin-bottom: 1.25rem;
+}
+
+.brand-panel h1 {
+  font-size: clamp(2.1rem, 4vw, 2.7rem);
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+.brand-panel h1 span {
+  display: block;
+  color: #8ea8ff;
+  font-weight: 400;
+}
+
+.brand-panel p {
+  margin: 0;
+  max-width: 32rem;
+  color: #c7d2fe;
+  font-size: 1rem;
+}
+
+.gradient-orb {
+  position: absolute;
+  inset: auto -6rem -6rem auto;
+  width: 16rem;
+  height: 16rem;
+  background: radial-gradient(circle, rgba(116, 185, 255, 0.45), transparent 70%);
+  filter: blur(30px);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.login-card {
+  background: #0b1227;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+  color: #e2e8f0;
+}
+
+.card-header {
+  margin-bottom: 1.75rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #a5b4fc;
+}
+
+.card-header h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.75rem;
+}
+
+.hint {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.google-button {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(90deg, #ffffff 0%, #f8fafc 100%);
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.google-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  border-color: #cbd5e1;
+}
+
+.google-button:active {
+  transform: translateY(0);
+}
+
+.google-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+  transform: none;
+  box-shadow: none;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.status {
+  margin-top: 1.25rem;
+  min-height: 1.5rem;
+}
+
+.muted {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.success {
+  margin: 0;
+  color: #34d399;
+  font-weight: 600;
+}
+
+.error {
+  margin: 0;
+  color: #f87171;
+  font-weight: 600;
+}
+
+.warning {
+  margin: 1rem 0 0;
+  padding: 0.85rem 0.9rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .page {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .brand-panel {
+    order: 2;
+    text-align: center;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .brand-panel p {
+    margin-inline: auto;
   }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .gradient-orb {
+    inset: auto auto -5rem 50%;
+    transform: translateX(-50%);
+  }
 }
