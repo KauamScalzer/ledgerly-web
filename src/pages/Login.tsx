@@ -3,6 +3,7 @@ import GoogleLoginButton from '../components/GoogleLoginButton'
 import { googleClientId } from '../config'
 import { useGoogleIdentity } from '../hooks/useGoogleIdentity'
 import { loginWithGoogleToken } from '../services/auth'
+import { useAuthContext } from '../context/AuthContext'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -36,6 +37,7 @@ function stateReducer(_state: State, action: Action): State {
 function LoginPage() {
   const [state, dispatch] = useReducer(stateReducer, initialState)
   const identity = useGoogleIdentity(googleClientId)
+  const { setSession, refreshUser } = useAuthContext()
 
   useEffect(() => {
     if (identity.error) {
@@ -56,21 +58,17 @@ function LoginPage() {
 
       const data = await loginWithGoogleToken(credential)
 
-      if (data?.token) {
-        localStorage.setItem('authToken', data.token)
+      if (!data?.accessToken) {
+        throw new Error('Token não recebido do servidor.')
       }
-      if (data?.user) {
-        localStorage.setItem('user', JSON.stringify(data.user))
-      }
+
+      setSession({ token: data.accessToken, user: data.user })
+      await refreshUser()
 
       dispatch({
         type: 'success',
-        message: `Bem-vindo, ${data?.user?.name || 'usuário'}! Redirecionando...`,
+        message: `Bem-vindo, ${data?.user?.name || 'usuário'}!`,
       })
-
-      setTimeout(() => {
-        window.location.assign('/dashboard')
-      }, 900)
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Erro ao fazer login'
       dispatch({ type: 'error', message })

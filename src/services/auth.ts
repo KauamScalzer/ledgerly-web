@@ -1,4 +1,4 @@
-type User = {
+export type User = {
   id: number
   googleSub: string
   email: string
@@ -8,7 +8,7 @@ type User = {
 }
 
 export type AuthResponse = {
-  token: string
+  accessToken: string
   user: User
 }
 
